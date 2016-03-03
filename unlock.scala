@@ -155,7 +155,16 @@ def writeDebugFrame(id: String, original: BufferedImage, frameInfo: FrameInfo, c
   g2d.drawImage(cleaned, 600, 300, 1100, 800, 0, 0, Width, Height, null)
 
   g2d.drawString("Base color: #%06X" format frameInfo.baseColor.rgb, 50, 850)
-  val keyInfo = frameInfo.key.map(k => "Found keys: " + k._2).getOrElse("No keys found!")
+
+  val keyInfo = frameInfo.key map { k =>
+    val cleanedPixels = cleaned.getRGB(0, 0, Width, Height, null, 0, Width)
+    val positions = cleanedPixels.zipWithIndex.flatMap { case (pixel, pos) =>
+      if (RGB(pixel).rgb != KeyReplacementColor) None else {
+        Some("(%02d:%02d)".format(pos % Width, pos / Width))
+      }
+    }
+    "Found keys: " + positions.mkString(", ")
+  } getOrElse("No keys found!")
   g2d.drawString(keyInfo, 50, 890)
 
   g2d.dispose()
