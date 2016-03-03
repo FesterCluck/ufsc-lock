@@ -22,8 +22,8 @@ implicit val executionContext = ExecutionContext.fromExecutor(
   Executors.newFixedThreadPool(Runtime.getRuntime.availableProcessors))
 
 // read frames from the archive to speed up reading time
-val zis = new ZipInputStream(new FileInputStream("input/♐LOCK-frames.zip"))
-processFrames(7200 to 7220)
+val zis = new ZipInputStream(new FileInputStream("input/LOCK-frames.zip"))
+processFrames(0 to 50000)
 zis.close()
 
 // Wait for jobs to complete
