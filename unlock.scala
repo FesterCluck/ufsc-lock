@@ -124,15 +124,19 @@ def cleanFrame(original: BufferedImage, frameInfo: FrameInfo): BufferedImage = {
   img
 }
 
+lazy val sagittarius = ImageIO.read(new File("sagittarius.png"))
+
 // Some graphics for visual comparison
 def writeDebugFrame(id: String, original: BufferedImage, frameInfo: FrameInfo, cleaned: BufferedImage): Unit = {
   val debugFrame = new BufferedImage(1200, 1000, BufferedImage.TYPE_INT_BGR)
 
   val g2d = debugFrame.createGraphics()
+  g2d.drawImage(sagittarius, 50, 22, null)
+
   g2d.setColor(Color.white)
-  g2d.setFont(new Font("Consolas", Font.PLAIN, 30))
+  g2d.setFont(new Font("Arial", Font.PLAIN, 35))
   g2d.setRenderingHint(RenderingHints.KEY_TEXT_ANTIALIASING, RenderingHints.VALUE_TEXT_ANTIALIAS_ON)
-  g2d.drawString(id, 50, 50)
+  g2d.drawString(id, 85, 50)
 
   g2d.drawString("Original", 50, 130)
   g2d.drawRect(49, 149, Width + 1, Height  + 1)
